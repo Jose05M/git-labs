@@ -39,7 +39,12 @@ jobs:
         hadoop-version: '3'
 
     - run: spark-submit --version
-    - run: spark-submit --master local hello-spark.py
+    #- run: spark-submit --master local hello-spark.py
+    - run: wget -O dataset.csv https://raw.githubusercontent.com/adsoftsito/bigdata/refs/heads/main/datasets/people.csv   
+    - run: ls -la
+    - run: spark-submit --master local people.py 
+
+    
     - run: ls -la  
     - name: GIT commit and push docs
       env: 
@@ -47,7 +52,7 @@ jobs:
         CI_COMMIT_AUTHOR: Jose05M 
       run: |
         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-        git config --global user.email "eduardo.mtz1403@gmail.com"
+        git config --global user.email "example@gmail.com"
         git add results
         git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
         git push
